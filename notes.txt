@@ -1,0 +1,8 @@
+jib command to make a local image:
+mvnw clean install jib:dockerBuild -Djib.to.image=fullstack:v1 (hay que estar en el nivel de carpetas donde esta el mvnw)
+
+jib command to build and pull image to docker hub
+mvnw clean install jib:build -Djib.to.image=nicoardizzoli/fullstack-springboot-aws:v1
+
+para correr mvn con 2 profiles y le estamos pasando como parmentro el imagetag
+mvnw clean install -P build-frontend -P jib-push-to-dockerhub -Dapp.image.tag=2
