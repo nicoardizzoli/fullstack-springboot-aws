@@ -229,7 +229,7 @@ function App() {
                     textAlign: 'center',
                 }}
             >
-                Developed by NicoArdizzoli
+                Developed by Nico Ardizzoli
             </Footer>
         </Layout>
     </Layout>
