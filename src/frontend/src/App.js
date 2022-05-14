@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {deleteStudent, getAllStudents} from "./client";
 
 import './App.css';
-import {Badge, Breadcrumb, Button, Empty, Layout, Menu, Popconfirm, Radio, Spin, Table, Tag} from "antd";
+import {Badge, Breadcrumb, Button, Divider, Empty, Layout, Menu, Popconfirm, Radio, Spin, Table, Tag} from "antd";
 import {
     DesktopOutlined,
     FileOutlined,
@@ -69,7 +69,7 @@ function App() {
                        </>
                    }
                    pagination={{pageSize: 50}} scroll={{y: 600}} rowKey={(student) => student.id}
-            />;
+            />
         </>;
 
     }
@@ -217,6 +217,9 @@ function App() {
                 }}
             >
                 Developed by Nico Ardizzoli
+                <Divider>
+                    <a href={"https://www.linkedin.com/in/nicoardizzoli/"} target={"_blank"}> Linkedin </a>
+                </Divider>
             </Footer>
         </Layout>
     </Layout>
