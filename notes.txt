@@ -78,3 +78,19 @@ services:
     restart: "always"
     environment:
       SPRING_PROFILES_ACTIVE: dev
+
+---------
+
+GITHUB ACTIONS:
+crear carpetas a nivel raiz del proyecto .github/workflows (son 2 carpetas) y dentro de workflows poner build.yml y deploy.yml
+el build.yml lo vamos a hacer para cuando se genere una pull request.
+
+luego para configurar el slack, creamos dentro del canal de slack, vamos a settings -> manage apps y creamos nuestra propia app. luego vamos a
+incoming webhooks, lo activamos , vamos a add webhook y seleccionamos el canal que querramos, de esta manera vamos a tener una url
+la cual va a servir para mandar mensajes a ese channel desde esa url
+
+vamos a github, vamos al repo, vamos a configuracion, vamos a secrets, y ponemos este link
+tmb agregamos el dockerhub password a los secrets
+
+luego vamos a aws, hay que crear un usuario que permita hacer deploys en elasticbeanstalk. vamos a nuestro usuario, credentials.
+creamos un grupo con permiso de elasticbeanstalk y un user
