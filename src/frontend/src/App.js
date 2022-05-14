@@ -218,7 +218,7 @@ function App() {
             >
                 Developed by Nico Ardizzoli
                 <Divider>
-                    <a href={"https://www.linkedin.com/in/nicoardizzoli/"} target={"_blank"}> Linkedin </a>
+                    <a href={"https://www.linkedin.com/in/nicoardizzoli/"} target={"_blank"}> Contact me on Linkedin </a>
                 </Divider>
             </Footer>
         </Layout>
