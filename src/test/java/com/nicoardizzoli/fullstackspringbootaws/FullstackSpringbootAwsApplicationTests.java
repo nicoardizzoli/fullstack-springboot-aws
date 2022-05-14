@@ -10,6 +10,7 @@ class FullstackSpringbootAwsApplicationTests {
     @Test
     void contextLoads() {
         Assertions.fail("PROBANDO GIT ACTIONS");
+        System.out.println("HOLA GIT ACTIONS?");
     }
 
 }
