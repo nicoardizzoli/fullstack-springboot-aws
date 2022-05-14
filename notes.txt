@@ -4,5 +4,77 @@ mvnw clean install jib:dockerBuild -Djib.to.image=fullstack:v1 (hay que estar en
 jib command to build and pull image to docker hub
 mvnw clean install jib:build -Djib.to.image=nicoardizzoli/fullstack-springboot-aws:v1
 
-para correr mvn con 2 profiles y le estamos pasando como parmentro el imagetag
+para correr mvn con 2 profiles y le estamos pasando como parmentro el imagetag // ESTE NO ME FUNCA, USE EL DE ARRIBA.
 mvnw clean install -P build-frontend -P jib-push-to-dockerhub -Dapp.image.tag=2
+
+
+----
+
+
+para montar la base de datos en docker, pero que los datos no se borren cuando reiniciamos el container hay que crear una carpeta
+y mapear la carpeta de postgres a la carpeta en el host q creamos:
+
+Primero creamos una network:
+docker network create "nombrenetwork"
+
+docker run --name db -p 5432:5432 --network=nombrenetwork -v "%cd%:/var/lib/postgresql/data" -e POSTGRES_PASSWORD=password -d postgres:alpine
+                                                              esto mapea la carpeta donde estamos (tenemos q estar parados donde queremos que se monte postg)
+                                                              a la carpeta en el container data postgres q es donde se guarda todo
+
+para entrar a la base de datos:
+docker run -it --rm --network=db postgres:alpine psql -h db -U postgres     // el -h db es el nombre del container que tiene la base de datos q creamos.
+
+AUNQUE ESTO ES MAS FACIL HACIENDOLO CON UN DOCKER-COMPOSE.
+
+    PARA CORRER UN .sql en una db en docker desde un archivo local:
+
+    cat ./query.sql | docker exec -i <container-name> psql -U <user> -d <database>
+
+
+
+
+---
+
+AWS:
+
+Una vez que tenemos la imagen en docker hub:
+
+Elastic Beanstalk: para hacer el deploy de la imagen (esta imagen tenia back y front en la misma). lo que hacemos es un docker-compose.yml que se sube a EB.
+Elastic Beanstalk lo que hace basicamente es crear todo el entorno, un loadbalancer, y hace el deploy en un server EC2 y se hacen tantas instancias como se requiera.
+
+ejemplo del docker-compose:
+
+services:
+  backend:
+    image: "nicoardizzoli/fullstack-springboot-aws:v1"
+    ports:
+      - "80:8080"
+    restart: "always"
+
+
+Amazon RDS (relational database service):
+se configura desde el menu de elasticbeanstalk se crea la database OJO QUE HAY QUE SELECCIONAR LA db.t2.micro porque es la unica que es gratis!!
+
+sg = security group: actua como un firewall en los EC2 instances y en rds to control incoming and outcoming traffic.
+Para configurar el sg y poder conectarnos a la base de datos desde nuestra pc, vamos a EC2, nuestra base de datos, security groups, buscamos el que diga rds,
+y en las inbound rules vamos a edit y agregamos una nueva rule, donde le agregamos nuestro ip.
+
+Una vez configurado el sg... podemos conectarnos desde un container que este corriendo en docker de postgres... con este comando:
+docker run -it --rm postgres:alpine psql -h aasp12d1cwtk70.cpmnqegtxsbe.sa-east-1.rds.amazonaws.com -U nicoardizzoli -d postgres
+
+--rm : remove automatically cuando finalizamos el container
+-h es la ip de la base de datos en amazon
+-U es el usuario
+-d es la base de datos.
+
+una vez que tenemos la imagen subida a docker hub, hay que ir al docker compose q vamos a subir a elasticbean y ponerle el profile que querramos
+el que en el aplication bean tenga la conexion a la base de datos.
+
+services:
+  backend:
+    image: "nicoardizzoli/fullstack-springboot-aws:v2"
+    ports:
+      - "80:8080"
+    restart: "always"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
