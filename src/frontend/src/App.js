@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {deleteStudent, getAllStudents} from "./client";
 
 import './App.css';
-import {Avatar, Badge, Breadcrumb, Button, Empty, Layout, Menu, Popconfirm, Radio, Spin, Table, Tag} from "antd";
+import {Badge, Breadcrumb, Button, Empty, Layout, Menu, Popconfirm, Radio, Spin, Table, Tag} from "antd";
 import {
     DesktopOutlined,
     FileOutlined,
@@ -74,19 +74,6 @@ function App() {
 
     }
 
-    const TheAvatar = ({name}) => {
-        if (name.trim().length === 0) {
-            return <Avatar icon={<UserOutlined/>}/>
-        }
-
-        const split = name.trim().split(" ");
-        if (split.length === 1) {
-            return <Avatar>{name.charAt(0)}</Avatar>
-        }
-
-        return <Avatar>{`${name.charAt(0)}${name.charAt(name.length - 1)}`}</Avatar>
-
-    }
 
     const removeStudent = (studentId, callback) => {
             deleteStudent(studentId).then(() => {
@@ -95,7 +82,7 @@ function App() {
         });
     }
 
-    const columns = fetchStudents => [
+    const columns = (fetchStudents) => [
 
         // {
         //     title: '',
@@ -127,7 +114,7 @@ function App() {
         {
             title: 'Actions',
             key: 'actions',
-            render: (text, student) =>
+            render: (student) =>
                 <Radio.Group>
                     <Popconfirm
                         placement='topRight'
