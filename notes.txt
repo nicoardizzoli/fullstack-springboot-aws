@@ -94,3 +94,11 @@ tmb agregamos el dockerhub password a los secrets
 
 luego vamos a aws, hay que crear un usuario que permita hacer deploys en elasticbeanstalk. vamos a nuestro usuario, credentials.
 creamos un grupo con permiso de elasticbeanstalk y un user
+
+
+--------------
+
+TESTING:
+repository y service son UnitTesting. Podemos usar por ej una base de datos in memory como H2. SE TESTEAN AISLADOS por lo que se mockean cosas.
+Controller: integration test, aca se testean los endpoints y los metodos del controller. (usamos MockMVC)
+
