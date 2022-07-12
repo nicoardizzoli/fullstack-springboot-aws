@@ -1,5 +1,6 @@
 # FullStack SpringBoot, React & AWS Course
 
+[![CICD](https://nicoardizzoli/fullstack-springboot-aws/actions/workflows/deploy.yml/badge.svg?branch=main)](https://nicoardizzoli/fullstack-springboot-aws/actions/workflows/deploy.yml)
 
 ![image](https://user-images.githubusercontent.com/90424996/168450704-95612a04-d6b3-4ad0-9568-24ed0030ff3e.png)
 
