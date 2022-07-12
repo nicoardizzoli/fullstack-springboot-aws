@@ -1,6 +1,6 @@
 services:
   backend:
-    image: "nicoardizzoli/fullstack-springboot-aws:14.5.2022.23.27.4"
+    image: "nicoardizzoli/fullstack-springboot-aws:12.7.2022.11.0.36"
     ports:
       - "80:8080"
     restart: "always"
